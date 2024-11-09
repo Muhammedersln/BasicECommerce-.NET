@@ -1,4 +1,4 @@
-using BasicECommerce.Infrastructure;
+﻿using BasicECommerce.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +27,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "pages",
+    pattern: "{slug?}",
+    defaults: new { controller = "Pages", action = "Index" });
 
 app.Run();
